@@ -1,63 +1,127 @@
 var bio = {
 	"name" : "Abhishek Chakraborty",
-	"role" : "Web Developer",
+	"role" : "Computer Science Student",
 	"contacts":{
 		"mobile" : "(+91)9958345723",
 		"email" : "eofsentinel@outlook.com",
 		"github" : "abhichak95",
 		"twitter" : "abhichak93",
-		"location" : "New Delhi, India"
+		"location" : "Greater Noida, India"
 	},
+	"welcomeMsg" : "\"The question of whether a computer can think is no more interesting than the question of whether a submarine can swim.\" ― Edsger W. Dijkstra",
+	"skills" : ["TECHNICAL: C, C++, Python, Java", "WEB DEVELOPMENT: HTML, CSS, JavaScript (+ jQuery)"],
 	"bioPic" : "images/me.jpg",
-	"welcomeMsg" : "Hello buddy!",
-	"skills" : ["awesomeness", "programming", "web designing"]
+	"display" : function() {
+		var formattedRole = HTMLheaderRole.replace("%data%", this.role);
+		$("#header").prepend(formattedRole);
+		var formattedName = HTMLheaderName.replace("%data%", this.name);
+		$("#header").prepend(formattedName);
+
+		var formattedMobile = HTMLmobile.replace("%data%", this.contacts.mobile);
+		$("#topContacts").append(formattedMobile);
+		$("#footerContacts").append(formattedMobile);
+		var formattedEmail = HTMLemail.replace("%data%", this.contacts.email);
+		$("#topContacts").append(formattedEmail);
+		$("#footerContacts").append(formattedEmail);
+		var formattedGithub = HTMLgithub.replace("%data%", this.contacts.github);
+		$("#topContacts").append(formattedGithub);
+		$("#footerContacts").append(formattedGithub);
+		var formattedTwitter = HTMLtwitter.replace("%data%", this.contacts.twitter);
+		$("#topContacts").append(formattedTwitter);
+		$("#footerContacts").append(formattedTwitter);
+		var formattedLocation = HTMLlocation.replace("%data%", this.contacts.location);
+		$("#topContacts").append(formattedLocation);
+		$("#footerContacts").append(formattedLocation);
+
+		var formattedBioPic = HTMLbioPic.replace("%data%", this.bioPic);
+		$("#header").append(formattedBioPic);
+
+		var formattedWelcomeMsg = HTMLwelcomeMsg.replace("%data%", this.welcomeMsg);
+		$("#header").append(formattedWelcomeMsg);
+
+		if (this.skills.length > 0){
+			$("#header").append(HTMLskillsStart);
+			for (i in this.skills) {
+				var formattedSkill = HTMLskills.replace("%data%", this.skills[i]);
+				$("#skills").append(formattedSkill);
+			}
+		}
+	}
 }
+bio.display();
 
 var work = {
 	"jobs" : [
-	{
-		"employer" : "Galgotias College of Engg & Technology",
-		"title" : "Student",
-		"dates" : "2012 - 2016",
-		"location" : "Greater Noida, India",
-		"description" : "No special jobs. Just a student."
-	},
-	{
-		"employer" : "Microsoft",
-		"title" : "Web Developer",
-		"dates" : "2016 - Future",
-		"location" : "San Francisco, US",
-		"description" : "Lead web developer in the team that manages the global Microsoft webpage."
-	}]
+		{
+			"employer" : "No working experience yet",
+			"title" : "",
+			"dates" : "",
+			"location" : "",
+			"description" : ""
+		}
+	],
+	"display" : function () {
+		if (this.jobs.length > 0) {
+			$("#workExperience").append(HTMLworkStart);
+			for (i in this["jobs"]) {
+				var formattedEmployer = HTMLworkEmployer.replace("%data%", this["jobs"][i]["employer"]);
+				var formattedTitle = HTMLworkTitle.replace("%data%", this["jobs"][i]["title"]);
+				$(".work-entry:last").append(formattedEmployer + formattedTitle);
+				var formattedDates = HTMLworkDates.replace("%data%", this["jobs"][i]["dates"]);
+				$(".work-entry:last").append(formattedDates);
+				var formattedLocation = HTMLworkLocation.replace("%data%", this["jobs"][i]["location"]);
+				$(".work-entry:last").append(formattedLocation);
+				var formattedDescription = HTMLworkDescription.replace("%data%", this["jobs"][i]["description"]);
+				$(".work-entry:last").append(formattedDescription);
+			}
+		}
+	}
 }
+work.display();
 
 var education = {
 	"schools" : [
 	{
 		"name" : "Tulsi Vidya Niketan",
-		"city" : "Varanasi, India",
-		"years" : "2000-2012",
-		"major" : ["Computer Science", "Physics", "Chemistry", "Mathematics", "English"],
+		"location" : "Varanasi, India",
+		"degree" : "12th Standard (CBSE)",
+		"dates" : "2010-2012",
+		"majors" : ["Computer Science", "Physics", "Chemistry", "Mathematics", "English"],
+		"url" : "http://www.tvnschool.org/"
+	},
+	{
+		"name" : "Tulsi Vidya Niketan",
+		"location" : "Varanasi, India",
+		"degree" : "10th Standard (CBSE)",
+		"dates" : "2000-2010",
+		"majors" : ["Science", "Mathematics", "English", "Social Science"],
 		"url" : "http://www.tvnschool.org/"
 	},
 	{
 		"name" : "Galgotias College of Engg & Technology",
-		"city" : "Greater Noida, India",
-		"years" : "2012-2016",
-		"major" : "Computer Science",
+		"location" : "Greater Noida, India",
+		"degree" : "Bachelors of Technology (UPTU)",
+		"dates" : "2012-2016",
+		"majors" : "Computer Science",
 		"url" : "http://galgotiacollege.edu/"
 	}],
 	"onlineCourses" : [
 	{
 		"title" : "JavaScript Basics",
+		"school" : "Udacity",
+		"date" : "May 2015",
 		"url" : "https://www.udacity.com/course/ud804"
 	},
 	{
 		"title" : "Introduction to Programming using Python",
+		"school" : "edX MIT",
+		"date" : "October 2014",
 		"url" : "https://www.edx.org/course/introduction-computer-science-mitx-6-00-1x-0"
 	},
 	{
 		"title" : "Algorithms: Design & Analysis, Part 1",
+		"school" : "Stanford Coursera",
+		"date" : "April 2015",
 		"url" : "https://www.coursera.org/course/algo"
 	}]
 }
@@ -68,50 +132,32 @@ var projects = {
 		"title" : "Atari Breakout",
 		"dates" : "2013",
 		"description" : "A simple version of the famous Atari Breakout game, implemented in C. It uses Stanford Portable Library to draw the graphic elements (GUI). Currently supports Linux-based OS only. This was developed when I was working on an online course which goes by tha name, CS50x, from edX.org.",
-		"image" : ["images/projectBreakoutThumb.png"]
+		"images" : ["images/projectBreakoutThumb.png"]
 	},
 	{
 		"title" : "Simple Chess",
 		"dates" : "2015",
 		"description" : "A simple version of Chess game, implemented in Python. This game employs a simple GUI (using PyGame) and supports Defensive, Offensive and a Random AI. This project was developed by me during the 6th semester of my regular course for the Infosys Campus Connect Programme. This project has scope of further development, since some special moves of a chess game are yet to be implemented, and the AI is just a simple one.",
-		"image" : ["images/ProjectChessSS1Thumb.png", "images/ProjectChessSS2Thumb.png"]
+		"images" : ["images/ProjectChessSS2Thumb.png", "images/ProjectChessSS1Thumb.png"]
 	}]
 }
-
-
-var formattedName = HTMLheaderName.replace("%data%", bio.name);
-var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-$("#header").append(formattedName);
-$("#header").append(formattedRole);
-
-if (bio["skills"].length > 0){
-	$("#header").append(HTMLskillsStart);
-	for (i in bio["skills"])
-	{
-		var formattedSkill = HTMLskills.replace("%data%", bio["skills"][i]);
-		$("#skills").append(formattedSkill);
-	}
-}
-
-var displayWork = function() {
-	if (work["jobs"].length > 0){
-		$("#workExperience").append(HTMLworkStart);
-		for (i in work["jobs"])
-		{
-			var formattedEmployer = HTMLworkEmployer.replace("%data%", work["jobs"][i]["employer"]);
-			var formattedTitle = HTMLworkTitle.replace("%data%", work["jobs"][i]["title"]);
-			$(".work-entry:last").append(formattedEmployer + formattedTitle);
-			var formattedDates = HTMLworkDates.replace("%data%", work["jobs"][i]["dates"]);
-			$(".work-entry:last").append(formattedDates);
-			var formattedLocation = HTMLworkLocation.replace("%data%", work["jobs"][i]["location"]);
-			$(".work-entry:last").append(formattedLocation);
-			var formattedDescription = HTMLworkDescription.replace("%data%", work["jobs"][i]["description"]);
-			$(".work-entry:last").append(formattedDescription);
+projects.display = function() {
+	for(var i in this.project) {
+		$("#projects").append(HTMLprojectStart);
+		var formattedTitle = HTMLprojectTitle.replace("%data%", this.project[i].title);
+		$(".project-entry:last").append(formattedTitle);
+		var formattedDates = HTMLprojectDates.replace("%data%", this.project[i].dates);
+		$(".project-entry:last").append(formattedDates);
+		var formattedDescription = HTMLprojectDates.replace("%data%", this.project[i].description);
+		$(".project-entry:last").append(formattedDescription);
+		for(var img in this.project[i].images) {
+			var formattedImage = HTMLprojectImage.replace("%data%", this.project[i].images[img]);
+			$(".project-entry:last").append(img == 0 ? "<br>" + formattedImage : formattedImage);
 		}
 	}
 }
+projects.display();
 
-displayWork();
 
 $(document).click(function(loc) {
 	logClicks(loc.pageX, loc.pageY);
@@ -125,25 +171,6 @@ var inName = function(name) {
 	lastName = nameArray[1].toUpperCase();
 	return firstName + " " + lastName;
 }
-
-
-
-projects.display = function() {
-	for(var i in projects.project) {
-		$("#projects").append(HTMLprojectStart);
-		var formattedTitle = HTMLprojectTitle.replace("%data%", projects.project[i].title);
-		$(".project-entry:last").append(formattedTitle);
-		var formattedDates = HTMLprojectDates.replace("%data%", projects.project[i].dates);
-		$(".project-entry:last").append(formattedDates);
-		var formattedDescription = HTMLprojectDates.replace("%data%", projects.project[i].description);
-		$(".project-entry:last").append(formattedDescription);
-		for(var img in projects.project[i].image) {
-			var formattedImage = HTMLprojectImage.replace("%data%", projects.project[i].image[img]);
-			$(".project-entry:last").append(img == 0 ? "<br>" + formattedImage : formattedImage);
-		}
-	}
-}
-projects.display();
 
 
 $("#mapDiv").append(googleMap);
