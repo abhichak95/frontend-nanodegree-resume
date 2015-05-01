@@ -79,3 +79,14 @@ education["major"] = "Physical Sciences";
 $("#header").prepend(work.title);
 $("#header").prepend(education.name);
 */
+
+/*
+$("#main").append(internationalizeButton);
+
+var inName = function(name) {
+	nameArray = name.trim().split(" ");
+	firstName = nameArray[0].slice(0,1).toUpperCase() + nameArray[0].slice(1).toLowerCase();
+	lastName = nameArray[1].toUpperCase();
+	return firstName + " " + lastName;
+}
+*/

@@ -55,15 +55,15 @@ var work = {
 		{
 			"employer" : "No working experience yet",
 			"title" : "",
-			"dates" : "",
 			"location" : "",
+			"dates" : "",
 			"description" : ""
 		}
 	],
 	"display" : function () {
 		if (this.jobs.length > 0) {
 			$("#workExperience").append(HTMLworkStart);
-			for (i in this["jobs"]) {
+			for (i in this.jobs) {
 				var formattedEmployer = HTMLworkEmployer.replace("%data%", this["jobs"][i]["employer"]);
 				var formattedTitle = HTMLworkTitle.replace("%data%", this["jobs"][i]["title"]);
 				$(".work-entry:last").append(formattedEmployer + formattedTitle);
@@ -83,26 +83,29 @@ var education = {
 	"schools" : [
 	{
 		"name" : "Tulsi Vidya Niketan",
+		"degree" : "10th Standard (CBSE)",
+		"dates" : "2000-2010",
 		"location" : "Varanasi, India",
-		"degree" : "12th Standard (CBSE)",
-		"dates" : "2010-2012",
-		"majors" : ["Computer Science", "Physics", "Chemistry", "Mathematics", "English"],
+		"majors" : ["Science", "Mathematics", "English", "Social Science"],
+		"aggregate" : "93.1%",
 		"url" : "http://www.tvnschool.org/"
 	},
 	{
 		"name" : "Tulsi Vidya Niketan",
+		"degree" : "12th Standard (CBSE)",
+		"dates" : "2010-2012",
 		"location" : "Varanasi, India",
-		"degree" : "10th Standard (CBSE)",
-		"dates" : "2000-2010",
-		"majors" : ["Science", "Mathematics", "English", "Social Science"],
+		"majors" : ["Computer Science", "Physics", "Chemistry", "Mathematics", "English"],
+		"aggregate" : "89.2%",
 		"url" : "http://www.tvnschool.org/"
 	},
 	{
 		"name" : "Galgotias College of Engg & Technology",
-		"location" : "Greater Noida, India",
 		"degree" : "Bachelors of Technology (UPTU)",
 		"dates" : "2012-2016",
-		"majors" : "Computer Science",
+		"location" : "Greater Noida, India",
+		"majors" : ["Computer Science"],
+		"aggregate" : "76.06%",
 		"url" : "http://galgotiacollege.edu/"
 	}],
 	"onlineCourses" : [
@@ -110,21 +113,65 @@ var education = {
 		"title" : "JavaScript Basics",
 		"school" : "Udacity",
 		"date" : "May 2015",
+		"aggregate" : "",
 		"url" : "https://www.udacity.com/course/ud804"
 	},
 	{
-		"title" : "Introduction to Programming using Python",
-		"school" : "edX MIT",
+		"title" : "Introduction to Computer Science &amp Programming using Python",
+		"school" : "MIT, edX",
 		"date" : "October 2014",
+		"aggregate" : "93%",
 		"url" : "https://www.edx.org/course/introduction-computer-science-mitx-6-00-1x-0"
 	},
 	{
 		"title" : "Algorithms: Design & Analysis, Part 1",
-		"school" : "Stanford Coursera",
+		"school" : "Stanford, Coursera",
 		"date" : "April 2015",
+		"aggregate" : "90.2%",
 		"url" : "https://www.coursera.org/course/algo"
-	}]
+	}],
+	"display" : function() {
+		for(var i in this.schools) {
+			$("#education").append(HTMLschoolStart);
+			var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", this.schools[i].degree);
+			var formattedSchoolName = HTMLschoolName.replace("%data%", this.schools[i].name);
+			formattedSchoolName = formattedSchoolName.replace("#", this.schools[i].url);
+			$(".education-entry:last").append(formattedSchoolName + formattedSchoolDegree);
+			var formattedSchoolDates = HTMLschoolDates.replace("%data%", this.schools[i].dates);
+			$(".education-entry:last").append(formattedSchoolDates);
+			var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", this.schools[i].location);
+			$(".education-entry:last").append(formattedSchoolLocation);
+			tmp = "";
+			for (var j in this.schools[i].majors) {
+				tmp = tmp + this.schools[i].majors[j] + ", "
+			}
+			tmp = tmp.slice(0, tmp.length-2);
+			var formattedSchoolMajor = HTMLschoolMajor.replace("%data%", tmp);
+			if (!(this.schools[i].majors.length === 1)) {
+				formattedSchoolMajor = formattedSchoolMajor.replace("Major", "Majors");
+			}
+			$(".education-entry:last").append(formattedSchoolMajor);
+			var formattedSchoolAggregate = HTMLschoolAggregate.replace("%data%", this.schools[i].aggregate);
+			$(".education-entry:last").append(formattedSchoolAggregate);
+		}
+
+		$("#education").append(HTMLonlineClasses);
+		for(var i in this.onlineCourses) {
+			$("#education").append(HTMLschoolStart);
+			var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", this.onlineCourses[i].title);
+			var formattedOnlineSchool = HTMLonlineSchool.replace("%data%", this.onlineCourses[i].school);
+			formattedOnlineTitle = formattedOnlineTitle.replace("#", this.onlineCourses[i].url);
+			$(".education-entry:last").append(formattedOnlineTitle + formattedOnlineSchool);
+			var formattedOnlineDates = HTMLonlineDates.replace("%data%", this.onlineCourses[i].date);
+			$(".education-entry:last").append(formattedOnlineDates);
+			if(this.onlineCourses[i].aggregate != "") {
+				var formattedOnlineAggregate = HTMLonlineAggregate.replace("%data%", this.onlineCourses[i].aggregate);
+				$(".education-entry:last").append(formattedOnlineAggregate);
+			}
+		}
+	}
 }
+education.display();
 
 var projects = {
 	"project" : [
@@ -163,14 +210,6 @@ $(document).click(function(loc) {
 	logClicks(loc.pageX, loc.pageY);
 });
 
-$("#main").append(internationalizeButton);
-
-var inName = function(name) {
-	nameArray = name.trim().split(" ");
-	firstName = nameArray[0].slice(0,1).toUpperCase() + nameArray[0].slice(1).toLowerCase();
-	lastName = nameArray[1].toUpperCase();
-	return firstName + " " + lastName;
-}
-
-
 $("#mapDiv").append(googleMap);
+
+//$("#main").append(internationalizeButton);
